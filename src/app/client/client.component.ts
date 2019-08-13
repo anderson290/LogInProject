@@ -15,7 +15,8 @@ export class ClientComponent implements OnInit {
   clientForm: FormGroup;
   validCpf: boolean = false;
   validDate: boolean = false;
-
+  openList: boolean = false;
+  list: any = {aee: 11};
   message = {
     cpf: '',
     date: ''
@@ -35,6 +36,7 @@ export class ClientComponent implements OnInit {
   async saveClient() {
     if(this.clientForm.valid){
       await this.clientService.save(this.clientForm.value).subscribe(response => {
+        this.openList = true;
         Swal.fire({
           title: 'Sucesso!',
           text: response['conteudoDoResponse'],
@@ -42,6 +44,7 @@ export class ClientComponent implements OnInit {
           confirmButtonText: 'Confirmar'
         })   
       }, err => {
+        this.openList = false;
         Swal.fire({
           title: 'Algo de inesperado aconteceu!',
           text: err.error.errors,
