@@ -1,0 +1,38 @@
+@import './colors';
+.divider-gray{
+    background: $light-gray;
+    height: 10em;
+}
+.login-wrapper{
+
+    margin: 5em 20em;
+    padding: 5em;
+    text-align: center;
+
+    mat-form-field{
+        width: 100%;  
+    }     
+
+    p{
+        color: $red;
+    }
+
+    .btn-login{
+
+        width: 80%;
+        padding: 0.6em;
+        margin-top: 1em;
+        border: 1px solid $green;
+        color: $green;
+        border-radius: 10em;
+        background: transparent;
+        transition: background 0.4s;
+
+        &:hover{
+            background: $green;
+            color: white;
+            border-color: $green;
+        }
+    }
+ }
+
