@@ -1,8 +1,10 @@
 <nav>
     <ul>
-        <li (click)="changeItem('client')">Cadastro</li>
+        <div class="float-right">
+            <li [routerLink]="[ '/' ]">Sair</li>
+        </div>
     </ul>
 </nav>
 
-<app-client *ngIf="client"></app-client>
+<app-client></app-client>
 

@@ -22,31 +22,29 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      usuario: ['', Validators.required],
-      senha: ['', Validators.required]
+      usuario: ['', Validators.nullValidator],
+      senha: ['', Validators.nullValidator]
     });
   }
 
-  async login(){
-    if(this.form.valid){
-      await this.userService.loginUser(this.form.value).subscribe(response =>{
-        Swal.fire({
-          title: 'Sucesso!',
-          text:'Login Efetuado Com Êxito!',
-          type: 'success',
-          confirmButtonText: 'Prosseguir'
-        })        
-        this.route.navigate(['/client']);
-      },err => {
-        Swal.fire({
-          title: 'Algo de inesperado aconteceu!',
-          text: err.error.errors,
-          type: 'error',
-          showCancelButton: true,
-          showConfirmButton: false,
-          cancelButtonText: 'Retornar'
-        })
-      });
-    }    
+  async login() {
+    await this.userService.loginUser(this.form.value).subscribe(response => {
+      Swal.fire({
+        title: 'Sucesso!',
+        text: `Login Efetuado Com Êxito!`,
+        type: 'success',
+        confirmButtonText: 'Prosseguir'
+      })
+      this.route.navigate(['/client']);
+    }, err => {
+      Swal.fire({
+        title: `Algo de inesperado aconteceu!`,
+        text: err.error.errors,
+        type: 'error',
+        showCancelButton: true,
+        showConfirmButton: false,
+        cancelButtonText: 'Retornar'
+      })
+    });
   }
 }

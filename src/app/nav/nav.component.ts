@@ -12,11 +12,4 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  changeItem(item) {
-    if (item == 'client') {
-      this.client = true;
-    }
-
-  }
 }

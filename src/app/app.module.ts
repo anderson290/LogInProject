@@ -8,12 +8,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import {NgxMaskModule} from 'ngx-mask';
+import { NgxMaskModule } from 'ngx-mask';
 import { UserService } from './services/user.service';
 import { ClientComponent } from './client/client.component';
-import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { NavComponent } from './nav/nav.component';
-import { ListComponent } from './client/list/list.component';
 import { AuthGuardService } from './guards/auth-guard.service';
 export const MY_FORMATS = {
   parse: {
@@ -31,8 +30,7 @@ export const MY_FORMATS = {
     AppComponent,
     LoginComponent,
     ClientComponent,
-    NavComponent,
-    ListComponent
+    NavComponent
   ],
   imports: [
     BrowserModule,

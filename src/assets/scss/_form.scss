@@ -11,6 +11,11 @@
     padding: 5em;
     text-align: center;
 
+    @media (max-width: 576px) {
+        margin: 0em;
+        padding: 5em 0em;
+
+     }
     mat-form-field{
         width: 100%;  
     }     
