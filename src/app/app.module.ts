@@ -12,6 +12,9 @@ import {NgxMaskModule} from 'ngx-mask';
 import { UserService } from './services/user.service';
 import { ClientComponent } from './client/client.component';
 import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
+import { NavComponent } from './nav/nav.component';
+import { ListComponent } from './client/list/list.component';
+import { AuthGuardService } from './guards/auth-guard.service';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -27,7 +30,9 @@ export const MY_FORMATS = {
   declarations: [
     AppComponent,
     LoginComponent,
-    ClientComponent
+    ClientComponent,
+    NavComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,8 @@ export const MY_FORMATS = {
   ],
   providers: [
     UserService,
-    { provide: MAT_DATE_LOCALE, useValue: 'it' }
+    AuthGuardService,
+    { provide: MAT_DATE_LOCALE, useValue: 'pt' }
   ],
   bootstrap: [AppComponent]
 })

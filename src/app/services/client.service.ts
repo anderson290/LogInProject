@@ -18,4 +18,8 @@ export class ClientService {
     return this.http.get(`${this.url}/validaDataNascimento/${params}`);
   }
 
+  save(params){
+    return this.http.post(`${this.url}/salvar`, params);
+  }
+
 }

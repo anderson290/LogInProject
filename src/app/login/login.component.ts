@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
+import { AuthGuardService } from '../guards/auth-guard.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private authService: AuthGuardService,
     private route: Router) { }
 
   ngOnInit() {
@@ -33,11 +35,11 @@ export class LoginComponent implements OnInit {
           text:'Login Efetuado Com Êxito!',
           type: 'success',
           confirmButtonText: 'Prosseguir'
-        })
+        })        
         this.route.navigate(['/client']);
       },err => {
         Swal.fire({
-          title: 'Algo não ocorreu bem!',
+          title: 'Algo de inesperado aconteceu!',
           text: err.error.errors,
           type: 'error',
           showCancelButton: true,

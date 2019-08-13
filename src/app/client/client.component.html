@@ -1,34 +1,38 @@
 <form class="container" [formGroup]="clientForm">
-    <div class="login-wrapper">
-        <div class="row">
-            <div class="center-object">
-                <img class="w-8em" src="assets/icons/purple-manager.svg" alt="">
-                  
-            </div>
-            <div class="col-12">
-                <mat-form-field (focusout)="checkCpf()">
-                    <input matInput placeholder="CPF" formControlName="cpf" required  mask="000.000.000-00">
-                </mat-form-field>
-                <p *ngIf="validCpf == false">{{message}}</p>
-            </div>
-            <div class="col-12">
-                <mat-form-field>
-                    <input matInput placeholder="Nome" formControlName="nome" required>
-                    <mat-error *ngIf="clientForm.hasError('required')">
-                        Campo Obrigatório
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-12">
-                <mat-form-field (focusout)="checkDate()">
-                    <input matInput [matDatepicker]="picker" formControlName="dataDeNascimento" placeholder="Data de Nascimento">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
-            <div class="col-12">
-                <button class="btn-save" (click)="saveClient()">Salvar</button>
+    <div class="row">
+        <div class="col-12">
+            <div class="login-wrapper">
+                <div class="row">
+                    <div class="center-object">
+                        <img class="w-8em" src="assets/icons/purple-manager.svg" alt="">
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field (focusout)="checkCpf()">
+                            <input matInput placeholder="CPF" formControlName="cpf" required mask="000.000.000-00">
+                        </mat-form-field>
+                        <p *ngIf="validCpf == false">{{message?.cpf}}</p>
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field>
+                            <input matInput placeholder="Nome" formControlName="nome">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field>
+                            <input matInput (dateChange)="checkDate($event)" [matDatepicker]="picker" required
+                                formControlName="dataDeNascimento" placeholder="Data de Nascimento">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <p *ngIf="validDate == false">{{message?.date}}</p>
+
+                    </div>
+                    <div class="col-12">
+                        <button class="btn-save" (click)="saveClient()" [disabled]="!validDate || !validCpf || !clientForm.valid">Salvar</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 </form>

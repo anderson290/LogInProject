@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from '../services/client.service';
 import { formatDate } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-client',
@@ -13,8 +14,12 @@ export class ClientComponent implements OnInit {
 
   clientForm: FormGroup;
   validCpf: boolean = false;
+  validDate: boolean = false;
 
-  message: string = '';
+  message = {
+    cpf: '',
+    date: ''
+  };
   constructor(
     private formBuilder: FormBuilder,
     private clientService: ClientService) { }
@@ -27,31 +32,44 @@ export class ClientComponent implements OnInit {
     })
   }
 
-  saveClient(){
-    
+  async saveClient() {
+    if(this.clientForm.valid){
+      await this.clientService.save(this.clientForm.value).subscribe(response => {
+        Swal.fire({
+          title: 'Sucesso!',
+          text: response['conteudoDoResponse'],
+          type: 'success',
+          confirmButtonText: 'Confirmar'
+        })   
+      }, err => {
+        Swal.fire({
+          title: 'Algo de inesperado aconteceu!',
+          text: err.error.errors,
+          type: 'error',
+          confirmButtonText: 'Retornar'
+        })
+        
+      });
+    }    
   }
 
- async checkCpf(){
-    await this.clientService.validateCpf(this.clientForm.value.cpf).subscribe(response =>{
-      console.log(response);
+  async checkCpf() {
+    await this.clientService.validateCpf(this.clientForm.value.cpf).subscribe(response => {
       this.validCpf = true;
-    },err=>{
+    }, err => {
       this.validCpf = false;
-      console.log(err);
-      this.message = err.error.errors;
+      this.message.cpf = err.error.errors;
     });
   }
-  async checkDate(){
-    this.clientForm.value.dataDeNascimento = formatDate(this.clientForm.value.dataDeNascimento = new Date(), 'dd/MM/yyyy', 'en');
-    // console.log("DATA", formatDate(this.clientForm.value.dataDeNascimento = new Date(), 'dd/MM/yyyy', 'en'))
-    await this.clientService.validateDate(this.clientForm.value.dataDeNascimento).subscribe(response =>{
-      console.log(response);
-      this.validCpf = true;
-    },err=>{
-      this.validCpf = false;
-      console.log(err);
-      this.message = err.error.errors;
+  async checkDate(e) {
+    this.clientForm.value.dataDeNascimento = formatDate(e.value, 'dd-MM-yyyy', 'en');
+    await this.clientService.validateDate(this.clientForm.value.dataDeNascimento).subscribe(response => {     
+      this.validDate = true;
+    }, err => {
+      this.validDate = false;
+      this.message.date = err.error.errors;
     });
   }
+
 
 }
