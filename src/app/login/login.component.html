@@ -21,7 +21,10 @@
                 </mat-form-field>
             </div>
             <div class="col-12">
-                <button class="btn-login" (click)="login()" >Login</button>
+                <button class="btn-login" (click)="login()" > 
+                    <div *ngIf="!load">Login</div> 
+                    <div *ngIf="load"><img class="w-2em" src="assets/icons/oval.svg" alt=""></div> 
+                </button>
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@ import { AuthGuardService } from '../guards/auth-guard.service';
 })
 export class LoginComponent implements OnInit {
 
-
+  load: boolean = false;
   form: FormGroup;
 
   constructor(
@@ -28,7 +28,11 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
+    
+    this.load = true;
+
     await this.userService.loginUser(this.form.value).subscribe(response => {
+      this.load = false;
       Swal.fire({
         title: 'Sucesso!',
         text: `Login Efetuado Com Êxito!`,
@@ -37,6 +41,7 @@ export class LoginComponent implements OnInit {
       })
       this.route.navigate(['/client']);
     }, err => {
+      this.load = false;
       Swal.fire({
         title: `Algo de inesperado aconteceu!`,
         text: err.error.errors,

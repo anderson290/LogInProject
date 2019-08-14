@@ -28,7 +28,10 @@
 
                     </div>
                     <div class="col-12">
-                        <button class="btn-save" (click)="saveClient()" [disabled]="!validDate || !validCpf || !clientForm.valid">Salvar</button>
+                        <button class="btn-save" (click)="saveClient()" [disabled]="!validDate || !validCpf || !clientForm.valid">
+                            <div *ngIf="!load">Salvar</div> 
+                            <div *ngIf="load"><img class="w-2em" src="assets/icons/oval.svg" alt=""></div> 
+                        </button>
                     </div>
                 </div>
             </div>
